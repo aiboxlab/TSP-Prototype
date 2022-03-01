@@ -88,6 +88,8 @@ def main(args, init_distributed=False):
 
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
+
+    print(hyps[0], refs[0])
     
     '''
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
