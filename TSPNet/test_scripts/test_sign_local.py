@@ -52,8 +52,8 @@ def main(args, init_distributed=False):
     task = tasks.setup_task(args)
 
     # Load valid dataset (we load training data below, based on the latest checkpoint)
-    #for valid_sub_split in args.valid_subset.split(','):
-    #    task.load_dataset(valid_sub_split, combine=False, epoch=0)
+    for valid_sub_split in args.valid_subset.split(','):
+        task.load_dataset(valid_sub_split, combine=False, epoch=0)
 
     # Build model and criterion
     model = task.build_model(args)
@@ -84,9 +84,9 @@ def main(args, init_distributed=False):
     valid_subsets = args.valid_subset.split(',')
 
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
-    hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
-
+    
     '''
+    hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
     for h, r, split in zip(hyps, refs, args.valid_subset.split(',')):
         assert len(h) == len(r)
 
@@ -113,7 +113,8 @@ def validate(args, trainer, task, epoch_itr, subsets):
         utils.set_torch_seed(args.fixed_validation_seed)
 
     hypothes = []
-    references = []
+    
+    #references = []
 
     for subset in subsets:
         # Initialize data iterator
@@ -143,6 +144,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
         with metrics.aggregate(new_root=True) as agg:
             hyps, refs = [], []
             for sample in progress:
+                print(sample)
                 logging_output, h, r = trainer.valid_step(sample, generate=True)
 
                 hyps.extend(h)
@@ -150,7 +152,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
         
         # log validation stats
         stats = get_valid_stats(args, trainer, agg.get_smoothed_values())
-        progress.print(stats, tag=subset, step=trainer.get_num_updates())
+        #progress.print(stats, tag=subset, step=trainer.get_num_updates())
 
         hypothes.append(hyps)
         references.append(refs)
