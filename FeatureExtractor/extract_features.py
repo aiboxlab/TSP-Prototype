@@ -8,8 +8,7 @@ import cv2
 import datetime as dt
 from datetime import datetime
 
-from models.pytorch_i3d import InceptionI3d
-from cropper import crop_face
+from FeatureExtractor.models.pytorch_i3d import InceptionI3d
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
