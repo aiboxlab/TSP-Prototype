@@ -52,7 +52,6 @@ def main(args, init_distributed=False):
     task = tasks.setup_task(args)
 
     # Load valid dataset (we load training data below, based on the latest checkpoint)
-    print(1)
     for valid_sub_split in args.valid_subset.split(','):
         task.load_dataset(valid_sub_split, combine=False, epoch=0)
 
@@ -76,7 +75,6 @@ def main(args, init_distributed=False):
 
     # Load the latest checkpoint if one is available and restore the
     # corresponding train iterator
-    print(2)
     extra_state, epoch_itr = checkpoint_utils.load_checkpoint(args, trainer)
 
 
@@ -89,7 +87,7 @@ def main(args, init_distributed=False):
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
-    print(hyps[0], refs[0])
+    print(hyps, refs)
     
     '''
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
@@ -150,7 +148,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
         with metrics.aggregate(new_root=True) as agg:
             hyps, refs = [], []
             for sample in progress:
-                print(sample)
+                #print(sample)
                 logging_output, h, r = trainer.valid_step(sample, generate=True)
 
                 hyps.extend(h)
