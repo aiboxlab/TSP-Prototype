@@ -123,7 +123,7 @@ def run(weight, frame_roots, outroot, inp_channels='rgb'):
 
             torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
-
+'''
 if __name__ == "__main__":
     weight = 'checkpoints/archive/nslt_2000_065538_0.514762.pt'
 
@@ -135,3 +135,4 @@ if __name__ == "__main__":
     out = '../TSPNet/i3d-features'
 
     run(weight, videos_roots, out, 'rgb')
+'''
