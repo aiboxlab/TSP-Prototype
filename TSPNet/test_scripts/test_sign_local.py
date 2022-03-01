@@ -118,7 +118,7 @@ def validate(args, trainer, task, epoch_itr, subsets):
 
     hypothes = []
     
-    #references = []
+    references = []
 
     for subset in subsets:
         # Initialize data iterator
