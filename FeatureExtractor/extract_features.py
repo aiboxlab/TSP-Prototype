@@ -114,16 +114,10 @@ def run(weight, video, outroot, inp_channels='rgb'):
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
-'''
-if __name__ == "__main__":
-    weight = 'checkpoints/archive/nslt_2000_065538_0.514762.pt'
+        text = "[{\"ident\": \""+ video +"\", \"size\": "+ str(len(features)) +"}]"
 
-    # ======= Extract Features for PHEOENIX-2014-T ========
-    videos_roots = [
-        '../',
-    ]
+        f = open("../TSPNet/data-bin/phoenix2014T/sp25000/test.sign-de.sign", "w+")
 
-    out = '../TSPNet/i3d-features'
-
-    run(weight, videos_roots, out, 'rgb')
-'''
+        f.write(text)
+        
+        f.close()
