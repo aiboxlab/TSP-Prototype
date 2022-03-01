@@ -39,6 +39,7 @@ def load_langpair_dataset(
 
     prefix = os.path.join(data_path, '{}.{}-{}.'.format(split, src, tgt))
 
+    print(prefix, src)
     src_dataset = load_sign_dataset(prefix + src, src_feat_roots)
     tgt_dataset = data_utils.load_indexed_dataset(prefix + tgt, tgt_dict, dataset_impl)
 
