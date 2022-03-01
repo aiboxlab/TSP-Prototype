@@ -348,12 +348,7 @@ class InceptionI3d(nn.Module):
         
 
     def extract_features(self, x):
-        torch.save(x, '../input.pt')
         for end_point in self.VALID_ENDPOINTS:
             if end_point in self.end_points:
                 x = self._modules[end_point](x)
-                torch.save(x, '../'+str(end_point)+'.pt')
-                print(str(end_point), x.size())
-        output = self.avg_pool(x)
-        torch.save(output, '../'+str(end_point)+'.pt')
-        return output
+        return self.avg_pool(x)
