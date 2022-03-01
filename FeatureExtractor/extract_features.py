@@ -87,12 +87,7 @@ def _extract_features(model, frames):
     return ft
 
 
-def run(weight, frame_roots, outroot, inp_channels='rgb'):
-    videos = []
-
-    for root in frame_roots:
-        paths = sorted(os.listdir(root))
-        videos.extend([os.path.join(root, path) for path in paths])
+def run(weight, video, outroot, inp_channels='rgb'):
 
     # ===== setup models ======
     i3d = InceptionI3d(400, in_channels=3)
@@ -111,16 +106,15 @@ def run(weight, frame_roots, outroot, inp_channels='rgb'):
         if not os.path.exists(outdir):
             os.makedirs(outdir)
 
-        for ind, video in enumerate(videos):
-            out_path = os.path.join(outdir, os.path.basename(video[:-4])) + '.pt'
+        out_path = os.path.join(outdir, os.path.basename(video[:-4])) + '.pt'
 
-            frames = load_all_rgb_frames_from_video(video, inp_channels)
+        frames = load_all_rgb_frames_from_video(video, inp_channels)
             
-            features = extract_features_fullvideo(i3d, frames, framespan, stride)
+        features = extract_features_fullvideo(i3d, frames, framespan, stride)
 
-            print(ind, video, len(features))
+        print(video, len(features))
 
-            torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
+        torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
 '''
 if __name__ == "__main__":
