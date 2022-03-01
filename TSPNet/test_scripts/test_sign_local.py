@@ -52,8 +52,8 @@ def main(args, init_distributed=False):
     task = tasks.setup_task(args)
 
     # Load valid dataset (we load training data below, based on the latest checkpoint)
-    for valid_sub_split in args.valid_subset.split(','):
-        task.load_dataset(valid_sub_split, combine=False, epoch=0)
+    #for valid_sub_split in args.valid_subset.split(','):
+    #    task.load_dataset(valid_sub_split, combine=False, epoch=0)
 
     # Build model and criterion
     model = task.build_model(args)
@@ -85,6 +85,7 @@ def main(args, init_distributed=False):
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
+    '''
     for h, r, split in zip(hyps, refs, args.valid_subset.split(',')):
         assert len(h) == len(r)
 
@@ -101,7 +102,7 @@ def main(args, init_distributed=False):
               'CVPR ROUGE: {}'.format(split, len(h), sacrebleu_score, bleu, rouge_score))
 
         print('performance: {:.2f} {}'.format(rouge_score['rouge_l/f_score']*100 ,' '.join([str(b) for b in bleu])))
-
+    '''
 
 def validate(args, trainer, task, epoch_itr, subsets):
     """Evaluate the model on the validation set(s) and return the losses."""
