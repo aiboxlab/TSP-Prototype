@@ -42,6 +42,7 @@ def load_langpair_dataset(
     src_dataset = load_sign_dataset(prefix + src, src_feat_roots)
     tgt_dataset = data_utils.load_indexed_dataset(prefix + tgt, tgt_dict, dataset_impl)
 
+    print("BLOW",str(len(src_dataset)),"BLAW")
     assert len(src_dataset) == len(tgt_dataset)
 
     logger.info('{} {} {}-{} {} examples'.format(
