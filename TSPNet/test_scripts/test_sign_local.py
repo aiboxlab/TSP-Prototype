@@ -52,8 +52,9 @@ def main(args, init_distributed=False):
     task = tasks.setup_task(args)
 
     # Load valid dataset (we load training data below, based on the latest checkpoint)
-    #for valid_sub_split in args.valid_subset.split(','):
-    #    task.load_dataset(valid_sub_split, combine=False, epoch=0)
+    print(1)
+    for valid_sub_split in args.valid_subset.split(','):
+        task.load_dataset(valid_sub_split, combine=False, epoch=0)
 
     # Build model and criterion
     model = task.build_model(args)
@@ -75,7 +76,9 @@ def main(args, init_distributed=False):
 
     # Load the latest checkpoint if one is available and restore the
     # corresponding train iterator
+    print(2)
     extra_state, epoch_itr = checkpoint_utils.load_checkpoint(args, trainer)
+
 
     # Train until the learning rate gets too small
     train_meter = StopwatchMeter()
