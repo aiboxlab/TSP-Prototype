@@ -80,6 +80,7 @@ def main(args, init_distributed=False):
     # Train until the learning rate gets too small
     train_meter = StopwatchMeter()
     train_meter.start()
+    print(args.valid_subset)
     valid_subsets = args.valid_subset.split(',')
 
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
