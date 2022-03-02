@@ -110,10 +110,12 @@ def run(weight, video, outroot, inp_channels='rgb'):
             
         features = extract_features_fullvideo(i3d, frames, framespan, stride)
 
-        print(video, len(features))
+        name = os.path.basename(video)[:-4]
+
+        print(name, len(features))
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
-        text = "[{\"ident\": \""+ os.path.basename(video)[:-4] +"\", \"size\": "+ str(len(features)) +"}]"
+        text = "[{\"ident\": \""+ name +"\", \"size\": "+ str(len(features)) +"}]"
 
         return text
