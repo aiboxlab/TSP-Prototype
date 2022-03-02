@@ -86,7 +86,7 @@ def main(args, init_distributed=False):
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
-    return hyps[0]
+    print("SPLIT_HERE",hyps, refs)
     
     '''
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
@@ -231,7 +231,7 @@ def cli_main(modify_parser=None):
                 nprocs=torch.cuda.device_count(),
             )
         else:
-            return distributed_main(args.device_id, args)
+            distributed_main(args.device_id, args)
     elif args.distributed_world_size > 1:
         # fallback for single node with multiple GPUs
         assert args.distributed_world_size <= torch.cuda.device_count()
@@ -247,8 +247,8 @@ def cli_main(modify_parser=None):
         )
     else:
         # single GPU training
-        return main(args)
+        main(args)
 
 
 if __name__ == '__main__':
-    return cli_main()
+    cli_main()
