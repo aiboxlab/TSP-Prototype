@@ -94,6 +94,9 @@ def run(weight, video, outroot, inp_channels='rgb'):
     i3d.cuda()
     i3d.train(False)  # Set model to evaluate mode
 
+    name = os.path.basename(video)[:-4]
+    text = ""
+
     print('feature extraction starts.')
 
     # ===== extract features ======
@@ -110,12 +113,10 @@ def run(weight, video, outroot, inp_channels='rgb'):
             
         features = extract_features_fullvideo(i3d, frames, framespan, stride)
 
-        name = os.path.basename(video)[:-4]
+        text = "[{\"ident\": \""+ name +"\", \"size\": "+ str(len(features)) +"}]"
 
         print(name, len(features))
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
-        text = "[{\"ident\": \""+ name +"\", \"size\": "+ str(len(features)) +"}]"
-
-        return text
+    return text
