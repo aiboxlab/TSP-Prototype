@@ -114,6 +114,6 @@ def run(weight, video, outroot, inp_channels='rgb'):
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
-        text = "[{\"ident\": \""+ video +"\", \"size\": "+ str(len(features)) +"}]"
+        text = "[{\"ident\": \""+ os.path.basename(video[:-4]) +"\", \"size\": "+ str(len(features)) +"}]"
         
         return text
