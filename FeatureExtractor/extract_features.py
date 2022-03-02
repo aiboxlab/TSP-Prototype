@@ -97,7 +97,7 @@ def run(weight, video, outroot, inp_channels='rgb'):
     name = os.path.basename(video)[:-4]
     text = ""
 
-    print('feature extraction starts.')
+    print('extracting.')
 
     # ===== extract features ======
     for framespan, stride in [(16, 2), (12, 2), (8, 2)]:
@@ -115,7 +115,7 @@ def run(weight, video, outroot, inp_channels='rgb'):
 
         text = "[{\"ident\": \""+ name +"\", \"size\": "+ str(len(features)) +"}]"
 
-        print(name, len(features))
+        #print(name, len(features))
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 

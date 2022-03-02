@@ -86,7 +86,10 @@ def main(args, init_distributed=False):
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
-    print("SPLIT_HERE",hyps, refs)
+    #print("SPLIT_HERE",hyps, refs)
+    f = open('./output.txt', 'w')
+    f.write(hyps[0])
+    f.close()
     
     '''
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
