@@ -88,7 +88,7 @@ def main(args, init_distributed=False):
 
     #print("SPLIT_HERE",hyps, refs)
     f = open('./output.txt', 'w')
-    f.write(hyps[0])
+    f.write(hyps[0][0])
     f.close()
     
     '''
