@@ -117,7 +117,7 @@ def run(weight, video, outroot, inp_channels='rgb'):
         text = "[{\"ident\": \""+ video +"\", \"size\": "+ str(len(features)) +"}]"
 
         #f = open("TSPNet/data-bin/phoenix2014T/sp25000/", "w+")
-        with open('../test.sign', 'w') as f:
+        with open('test.sign', 'w') as f:
             f.write(text)
             f.close()
 
