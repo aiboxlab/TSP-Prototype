@@ -14,7 +14,7 @@ args = parser.parse_args()
 
 
 def process(texts, vocab_size=25000, dim=300):
-    emb = BPEmb(lang='de', vs=vocab_size, dim=dim)
+    emb = BPEmb(lang='pt', vs=vocab_size, dim=dim)
 
     texts = [emb.encode(t) for t in texts]
 

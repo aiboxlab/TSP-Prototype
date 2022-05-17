@@ -19,7 +19,7 @@ WARMUP=0
 VOCAB=25000
 CUDA_VISIBLE_DEVICES=0 python train.py data-bin/phoenix2014T/sp${VOCAB} \
         --task translation_sign \
-        --target-lang de \
+        --target-lang pt \
         --max-tokens 4096 \
         --num-levels 3 \
         --multilv-args '{"span_lengths": [8, 12, 16], "level_links": [[1, 0], [2, 1], [2, 0]], "stride": 2, "eye": true, "same_level_links": true, "symmetric": true}' \
