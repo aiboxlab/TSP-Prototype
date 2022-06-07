@@ -136,7 +136,6 @@ def run(weight, video, outroot, inp_channels='rgb'):
                 val = (tensor - mi) / div
                 val = val * 1.0
                 save.append(val)
-            print(path_file)
             torch.save(save, path_file);
 
     return text
