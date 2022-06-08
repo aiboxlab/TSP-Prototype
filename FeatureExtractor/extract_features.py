@@ -1,14 +1,30 @@
 import os
-
+import math
 import pandas as pd
 import numpy as np
 import torch
 import cv2
-
 import datetime as dt
 from datetime import datetime
-
 from FeatureExtractor.models.pytorch_i3d import InceptionI3d
+
+
+# ===== Rescaling =====
+def crop_slices(image, height, width, slice_size):
+    return image[0:height, 0+slice_size:width-slice_size]
+
+def resize_square(image, resolution_factor):
+    return cv2.resize(image, (resolution_factor, resolution_factor)) 
+
+def make_frame(image, to_resolution):
+    height, width, _ = image.shape
+    diff = max(height, width) - min(height, width)
+    slice_size= int(math.floor(diff/2))
+    crop_img = crop_slices(image, height, width, slice_size)
+    resize_img = resize_square(crop_img, to_resolution)
+    return resize_img
+# ===== Rescaling =====
+
 
 os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 
@@ -24,6 +40,10 @@ def load_all_rgb_frames_from_video(video, desired_channel_order='rgb'):
 
         try:
             ret, frame = cap.read()
+
+            # Rescaling
+            frame = make_frame(frame, 224)
+
             frame = cv2.resize(frame, dsize=(224, 224))
 
             frame_transformed = frame.copy()   
