@@ -198,23 +198,4 @@ def run(weight, video, outroot, inp_channels='rgb'):
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
-
-    # ===== NORMALIZAÇÃO =====
-
-    # Valores i3d-librarias rescaling
-    mi = torch.tensor([0])
-    ma = torch.tensor([5.5]);
-    div = ma - mi
-
-    for folder in sorted(os.listdir(outroot)):
-        for file in sorted(os.listdir(outroot+"/"+folder)):
-            path_file = outroot+"/"+folder+"/"+file
-            i3d_list = torch.load(path_file)
-            save = []
-            for tensor in i3d_list:
-                val = (tensor - mi) / div
-                val = val * 1.0
-                save.append(val)
-            torch.save(save, path_file);
-
     return text
