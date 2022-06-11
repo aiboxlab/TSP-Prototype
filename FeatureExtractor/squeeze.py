@@ -19,8 +19,6 @@ class POOL(nn.Module):
 
 def squeeze_net(name, features, stride):
 
-    print(os.getcwd())
-
     model = POOL()
     video_mov = name + ".mov"
 
