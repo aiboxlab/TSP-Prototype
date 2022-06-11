@@ -26,7 +26,7 @@ def squeeze_net(name, features, stride):
 
     # ===== Open pickle file =====
     data = []
-    with open('./norm_dataset_fa.pkl', 'rb') as f:
+    with open('./FeatureExtractor/norm_dataset_fa.pkl', 'rb') as f:
         data = pickle.load(f)
 
     if video_mov in data.keys():
