@@ -15,17 +15,21 @@ class POOL(nn.Module):
         return x
 
 
-def squeeze_net(name, features):
-
+def squeeze_net(name, features, stride):
     model = POOL()
     video_mov = name + ".mov"
+
+    # ===== Open pickle file =====
+    data = []
+    with open('norm_dataset_fa.pkl', 'rb') as f:
+        data = pickle.load(f)
 
     if video_mov in data.keys():
         print("squeezing.")
         obj = data[video_mov]
         spanned_list = []
         for i in range(len(obj)):
-            if i % span == 0:
+            if i % stride == 0:
                 spanned_list.append(obj[i])
 
         unified = []

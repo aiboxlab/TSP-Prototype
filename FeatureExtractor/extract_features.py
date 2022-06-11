@@ -119,13 +119,6 @@ def run(weight, video, outroot, inp_channels='rgb'):
     name = os.path.basename(video)[:-4]
     text = ""
 
-
-    # ===== Open pickle file =====
-    data = []
-    with open('dataset_gus.pkl', 'rb') as f:
-        data = pickle.load(f)
-
-
     print('extracting.')
 
     # ===== extract features ======
@@ -147,7 +140,7 @@ def run(weight, video, outroot, inp_channels='rgb'):
         #print(name, len(features))
 
         # ===== Squeeze Avgpooling =====
-        features = squeeze_net(name, features)
+        features = squeeze_net(name, features, stride)
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
