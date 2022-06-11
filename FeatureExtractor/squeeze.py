@@ -1,3 +1,4 @@
+import os
 import torch
 import pickle
 import torch.nn as nn
@@ -22,7 +23,8 @@ def squeeze_net(name, features, stride):
 
     # ===== Open pickle file =====
     data = []
-    with open('FeatureExtractor/norm_dataset_fa.pkl', 'rb') as f:
+    print(os.getcwd())
+    with open('./norm_dataset_fa.pkl', 'rb') as f:
         data = pickle.load(f)
 
     if video_mov in data.keys():
