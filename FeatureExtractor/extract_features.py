@@ -9,7 +9,7 @@ from datetime import datetime
 from FeatureExtractor.models.pytorch_i3d import InceptionI3d
 
 # ===== Squeeze =====
-from squeeze import squeeze_net
+from FeatureExtractor.squeeze import squeeze_net
 
 # ===== Rescaling =====
 def crop_slices(image, height, width, slice_size):
