@@ -18,12 +18,14 @@ class POOL(nn.Module):
 
 
 def squeeze_net(name, features, stride):
+
+    print(os.getcwd())
+
     model = POOL()
     video_mov = name + ".mov"
 
     # ===== Open pickle file =====
     data = []
-    print(os.getcwd())
     with open('./norm_dataset_fa.pkl', 'rb') as f:
         data = pickle.load(f)
 
