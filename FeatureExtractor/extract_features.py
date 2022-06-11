@@ -5,8 +5,22 @@ import numpy as np
 import torch
 import cv2
 import datetime as dt
+import pickle
 from datetime import datetime
 from FeatureExtractor.models.pytorch_i3d import InceptionI3d
+
+
+# ==== AVG POOL ====
+class POOL(nn.Module):
+  def __init__(self):
+    super(POOL, self).__init__()
+
+    self.features = nn.Sequential(
+        nn.AvgPool2d(2, stride=1), # nn.AvgPool2d(2, stride=1)
+    )
+  def forward(self, x: torch.Tensor) -> torch.Tensor:
+    x = self.features(x)
+    return x
 
 
 # ===== Rescaling =====
@@ -117,6 +131,13 @@ def run(weight, video, outroot, inp_channels='rgb'):
     name = os.path.basename(video)[:-4]
     text = ""
 
+
+    # ===== Open pickle file =====
+    data = []
+    with open('dataset_gus.pkl', 'rb') as f:
+        data = pickle.load(f)
+
+
     print('extracting.')
 
     # ===== extract features ======
@@ -136,6 +157,44 @@ def run(weight, video, outroot, inp_channels='rgb'):
         text = "[{\"ident\": \""+ name +"\", \"size\": "+ str(len(features)) +"}]"
 
         #print(name, len(features))
+
+        # ===== Squeeze Avgpooling =====
+        video_mov = name + ".mov"
+        if video_mov in data.keys():
+            print("squeezing.")
+            obj = data[video_mov]
+            spanned_list = []
+            for i in range(len(obj)):
+                if i % span == 0:
+                    spanned_list.append(obj[i])
+
+            unified = []
+            for i in range(len(features)): # para cada i de features
+                tensor = features[i][0]
+
+                pkl_tensor = []
+                if i >= len(spanned_list):
+                    pkl_tensor = spanned_list[-1]
+                    overflow += 1
+                else:
+                    pkl_tensor = torch.tensor(spanned_list[i])
+
+                merged = torch.stack([ tensor[:960] , pkl_tensor ])
+                merged = torch.unsqueeze(merged, 0)
+                pooled = model(merged)
+
+                array = pooled[0][0]
+
+                concatenated = torch.cat((array, tensor[960:] ))
+                concatenated = torch.cat((concatenated, torch.tensor([0]) ))
+
+                result = torch.unsqueeze(concatenated, 0)
+
+                unified.append(result)
+
+            features = unified
+        else:
+            print("NAME ISNT IN KEYS!")
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
