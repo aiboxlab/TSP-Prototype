@@ -1,5 +1,6 @@
 import torch
 import pickle
+import torch.nn as nn
 
 # ==== AVG POOL ====
 class POOL(nn.Module):
