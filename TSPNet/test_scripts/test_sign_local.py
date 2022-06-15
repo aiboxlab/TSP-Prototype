@@ -86,10 +86,12 @@ def main(args, init_distributed=False):
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
+    return hyps[0][0]
+
     #print("SPLIT_HERE",hyps, refs)
-    f = open('./output.txt', 'w')
-    f.write(hyps[0][0])
-    f.close()
+    #f = open('./output.txt', 'w')
+    #f.write(hyps[0][0])
+    #f.close()
     
     '''
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
@@ -250,8 +252,8 @@ def cli_main(modify_parser=None):
         )
     else:
         # single GPU training
-        main(args)
+        return main(args)
 
 
 if __name__ == '__main__':
-    cli_main()
+    return cli_main()
