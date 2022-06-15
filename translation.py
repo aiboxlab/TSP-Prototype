@@ -1,5 +1,4 @@
 import shutil
-import warnings
 import subprocess
 from FeatureExtractor.extract_features import run as extract_features
 from os.path import exists
@@ -27,11 +26,9 @@ def translate(video_path):
     
     try:
         print("predicting.")
-        warnings.filterwarnings("ignore")
         bashCommand = "bash test_phoenix_pos_embed_sp_test_3lvl.sh"
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         output, error = process.communicate()
-        #output = str(output)[:-3][2:]
         try:
             with open('../output.txt') as f:
                 output = f.readlines()[0]

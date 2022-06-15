@@ -8,9 +8,6 @@ import datetime as dt
 from datetime import datetime
 from FeatureExtractor.models.pytorch_i3d import InceptionI3d
 
-# ===== Squeeze =====
-from FeatureExtractor.squeeze import squeeze_net
-
 # ===== Rescaling =====
 def crop_slices(image, height, width, slice_size):
     return image[0:height, 0+slice_size:width-slice_size]
@@ -136,11 +133,6 @@ def run(weight, video, outroot, inp_channels='rgb'):
         features = extract_features_fullvideo(i3d, frames, framespan, stride)
 
         text = "[{\"ident\": \""+ name +"\", \"size\": "+ str(len(features)) +"}]"
-
-        #print(name, len(features))
-
-        # ===== Squeeze Avgpooling =====
-        features = squeeze_net(name, features, stride)
 
         torch.save(features, os.path.join(outdir, os.path.basename(video[:-4])) + '.pt')
 
