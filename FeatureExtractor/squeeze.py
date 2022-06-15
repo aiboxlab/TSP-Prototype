@@ -51,8 +51,8 @@ def squeeze_net(name, features, stride):
 
             array = pooled[0][0]
 
-            concatenated = torch.cat((array, tensor[960:] ))
-            concatenated = torch.cat((concatenated, torch.tensor([0]) ))
+            concatenated = torch.cat((array, tensor[960:]))
+            concatenated = torch.cat((concatenated, torch.tensor([0])))
 
             result = torch.unsqueeze(concatenated, 0)
 

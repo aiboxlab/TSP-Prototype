@@ -46,7 +46,7 @@ def main(args, init_distributed=False):
         checkpoint_utils.verify_checkpoint_directory(args.save_dir)
 
     # Print args
-    logger.info(args)
+    #logger.info(args)
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)
@@ -58,20 +58,26 @@ def main(args, init_distributed=False):
     # Build model and criterion
     model = task.build_model(args)
     criterion = task.build_criterion(args)
+
+    """
     logger.info(model)
     logger.info('model {}, criterion {}'.format(args.arch, criterion.__class__.__name__))
     logger.info('num. model params: {} (num. trained: {})'.format(
         sum(p.numel() for p in model.parameters()),
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     ))
+    """
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion)
+
+    """
     logger.info('training on {} GPUs'.format(args.distributed_world_size))
     logger.info('max tokens per GPU = {} and max sentences per GPU = {}'.format(
         args.max_tokens,
         args.max_sentences,
     ))
+    """
 
     # Load the latest checkpoint if one is available and restore the
     # corresponding train iterator
@@ -87,32 +93,9 @@ def main(args, init_distributed=False):
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
     print(hyps[0][0])
-    #return hyps[0][0]
-
-    #print("SPLIT_HERE",hyps, refs)
     #f = open('./output.txt', 'w')
     #f.write(hyps[0][0])
     #f.close()
-    
-    '''
-    hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
-    for h, r, split in zip(hyps, refs, args.valid_subset.split(',')):
-        assert len(h) == len(r)
-
-        sacrebleu_score, _, _ = sacrebleu.corpus_bleu(h, [r], tokenize=tokenize), hyps, refs
-        bleu = compute_cvpr_bleu(h, r)
-        rouge_score = rouge.rouge(h, r)
-
-        for i in range(len(h)):
-            print(h[i], r[i]+"\n")
-
-        print('{} set has {} samples,\n'
-              'sacrebleu: {},\n'
-              'CVPR BLEU scripts: {}\n'
-              'CVPR ROUGE: {}'.format(split, len(h), sacrebleu_score, bleu, rouge_score))
-
-        print('performance: {:.2f} {}'.format(rouge_score['rouge_l/f_score']*100 ,' '.join([str(b) for b in bleu])))
-    '''
 
 def validate(args, trainer, task, epoch_itr, subsets):
     """Evaluate the model on the validation set(s) and return the losses."""
