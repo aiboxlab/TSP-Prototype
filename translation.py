@@ -1,7 +1,7 @@
 import shutil
 import warnings
 import subprocess
-from FeatureExtractor.extract_features import run as build_embeddings
+from FeatureExtractor.extract_features import run as extract_features
 from os.path import exists
 
 def translate(video_path):
@@ -12,7 +12,7 @@ def translate(video_path):
     
     weight = './FeatureExtractor/checkpoints/archive/nslt_2000_065538_0.514762.pt'
     i3d_folder = './TSPNet/i3d-features'
-    json = build_embeddings(weight, video_path, i3d_folder, 'rgb')
+    json = extract_features(weight, video_path, i3d_folder, 'rgb')
     
     f = open('./TSPNet/data-bin/phoenix2014T/sp25000/test.sign-'+lang+'.sign', 'w')
     f.write(json)
