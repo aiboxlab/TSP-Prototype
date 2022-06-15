@@ -142,5 +142,4 @@ cython_debug/
 
 /i3d-features
 /checkpoints
-/data-bin
 /data/
