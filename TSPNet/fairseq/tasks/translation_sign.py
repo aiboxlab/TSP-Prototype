@@ -39,11 +39,11 @@ def load_langpair_dataset(
 
     prefix = os.path.join(data_path, '{}.{}-{}.'.format(split, src, tgt))
 
-    print(prefix, src, tgt)
+    #print(prefix, src, tgt)
     src_dataset = load_sign_dataset(prefix + src, src_feat_roots)
     tgt_dataset = data_utils.load_indexed_dataset(prefix + tgt, tgt_dict, dataset_impl)
 
-    print("BLOW",str(len(src_dataset)), str(len(tgt_dataset)),"BLAW")
+    #print("BLOW",str(len(src_dataset)), str(len(tgt_dataset)),"BLAW")
     assert len(src_dataset) == len(tgt_dataset)
 
     logger.info('{} {} {}-{} {} examples'.format(
