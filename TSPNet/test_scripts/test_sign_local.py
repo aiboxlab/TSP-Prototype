@@ -46,7 +46,7 @@ def main(args, init_distributed=False):
         checkpoint_utils.verify_checkpoint_directory(args.save_dir)
 
     # Print args
-    #logger.info(args)
+    logger.info(args)
 
     # Setup task, e.g., translation, language modeling, etc.
     task = tasks.setup_task(args)
@@ -58,26 +58,20 @@ def main(args, init_distributed=False):
     # Build model and criterion
     model = task.build_model(args)
     criterion = task.build_criterion(args)
-
-    """
     logger.info(model)
     logger.info('model {}, criterion {}'.format(args.arch, criterion.__class__.__name__))
     logger.info('num. model params: {} (num. trained: {})'.format(
         sum(p.numel() for p in model.parameters()),
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     ))
-    """
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion)
-
-    """
     logger.info('training on {} GPUs'.format(args.distributed_world_size))
     logger.info('max tokens per GPU = {} and max sentences per GPU = {}'.format(
         args.max_tokens,
         args.max_sentences,
     ))
-    """
 
     # Load the latest checkpoint if one is available and restore the
     # corresponding train iterator
