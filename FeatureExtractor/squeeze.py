@@ -43,7 +43,7 @@ def squeeze_net(name, features, stride):
             if i >= len(spanned_list):
                 pkl_tensor = spanned_list[-1]
             else:
-                pkl_tensor = torch.tensor(spanned_list[i].clone().detach())
+                pkl_tensor = torch.tensor(spanned_list[i])
 
             merged = torch.stack([ tensor[:960] , pkl_tensor ])
             merged = torch.unsqueeze(merged, 0)
