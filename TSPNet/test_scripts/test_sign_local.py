@@ -256,4 +256,4 @@ def cli_main(modify_parser=None):
 
 
 if __name__ == '__main__':
-    return cli_main()
+    cli_main()
