@@ -7,14 +7,14 @@ from os.path import exists
 def translate(input_path):
     
     lang = "pt"
-    if not exists(video_path):
-        print(video_path,": Video file was not found!")
+    if not exists(input_path):
+        print(input_path,": Video file was not found!")
         return ""
     
     try:
         weight = './FeatureExtractor/checkpoints/archive/nslt_2000_065538_0.514762.pt'
         i3d_folder = './TSPNet/i3d-features'
-        json = extract_features(weight, video_path, i3d_folder, 'rgb')
+        json = extract_features(weight, input_path, i3d_folder, 'rgb')
 
         f = open('./TSPNet/data-bin/phoenix2014T/sp25000/test.sign-'+lang+'.sign', 'w')
         f.write(json)
@@ -24,7 +24,7 @@ def translate(input_path):
         f.write('Foo')
         f.close()
     except:
-        print(video_path,": An error occurred during extraction!")
+        print(input_path,": An error occurred during extraction!")
         return ""
     
     os.chdir('./TSPNet/test_scripts')
@@ -39,9 +39,9 @@ def translate(input_path):
             with open('../output.txt') as f:
                 output = f.readlines()[0]
         except:
-            print(video_path,": Output file was empty!")
+            print(input_path,": Output file was empty!")
     except:
-        print(video_path,": An error occurred during prediction!")
+        print(input_path,": An error occurred during prediction!")
         
     os.chdir('../..')
     shutil.rmtree('./TSPNet/i3d-features')
