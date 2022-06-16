@@ -1,3 +1,4 @@
+import os
 import shutil
 import subprocess
 from FeatureExtractor.extract_features import run as extract_features
