@@ -141,8 +141,7 @@ def run(weight, video, outroot, inp_channels='rgb'):
 
 
     # ===== NORMALIZAÇÃO =====
-
-    # Valores i3d-librarias rescaling
+    # Valores i3d-librarias rescaling (0 ~ 5.5 => 0 ~ 1.0)
     mi = torch.tensor([0])
     ma = torch.tensor([5.5]);
     div = ma - mi

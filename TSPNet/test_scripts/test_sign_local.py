@@ -91,25 +91,6 @@ def main(args, init_distributed=False):
     f.write(hyps[0][0])
     f.close()
     
-    '''
-    hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
-    for h, r, split in zip(hyps, refs, args.valid_subset.split(',')):
-        assert len(h) == len(r)
-
-        sacrebleu_score, _, _ = sacrebleu.corpus_bleu(h, [r], tokenize=tokenize), hyps, refs
-        bleu = compute_cvpr_bleu(h, r)
-        rouge_score = rouge.rouge(h, r)
-
-        for i in range(len(h)):
-            print(h[i], r[i]+"\n")
-
-        print('{} set has {} samples,\n'
-              'sacrebleu: {},\n'
-              'CVPR BLEU scripts: {}\n'
-              'CVPR ROUGE: {}'.format(split, len(h), sacrebleu_score, bleu, rouge_score))
-
-        print('performance: {:.2f} {}'.format(rouge_score['rouge_l/f_score']*100 ,' '.join([str(b) for b in bleu])))
-    '''
 
 def validate(args, trainer, task, epoch_itr, subsets):
     """Evaluate the model on the validation set(s) and return the losses."""
