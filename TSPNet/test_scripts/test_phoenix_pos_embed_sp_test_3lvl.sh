@@ -16,9 +16,9 @@ python TSPNet/test_scripts/test_sign_local.py TSPNet/data-bin/phoenix2014T/sp${V
         --max-tokens 4096 \
         --num-levels 3 \
         --multilv-args '{"span_lengths": [8, 12, 16], "level_links": [[1, 0], [2, 1], [2, 0]], "stride": 2, "eye": true, "same_level_links": true, "symmetric": true}' \
-        --src-lv0-body-feat-root i3d-features/span=8_stride=2 \
-        --src-lv1-body-feat-root i3d-features/span=12_stride=2 \
-        --src-lv2-body-feat-root i3d-features/span=16_stride=2 \
+        --src-lv0-body-feat-root TSPNet/i3d-features/span=8_stride=2 \
+        --src-lv1-body-feat-root TSPNet/i3d-features/span=12_stride=2 \
+        --src-lv2-body-feat-root TSPNet/i3d-features/span=16_stride=2 \
         --arch transformer_sign \
         --encoder-embed-dim 1024 \
         --decoder-embed-dim 300 \
