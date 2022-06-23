@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+# PS::: OS CAMINHOS FORAM ALTERADOS PARA QUE
+# PUDESSE SER EXECUTADO NA PASTA ANTES DO TSPNET
+
+
 set -x -e -u -o pipefail
 CHECKPOINT=$(realpath 'TSPNet/checkpoint_path/checkpoint_best.pt')
 
