@@ -55,8 +55,6 @@ def main(args, init_distributed=False):
     for valid_sub_split in args.valid_subset.split(','):
         task.load_dataset(valid_sub_split, combine=False, epoch=0)
 
-    print("OPA 1")
-
     # Build model and criterion
     model = task.build_model(args)
     criterion = task.build_criterion(args)
@@ -66,8 +64,6 @@ def main(args, init_distributed=False):
         sum(p.numel() for p in model.parameters()),
         sum(p.numel() for p in model.parameters() if p.requires_grad),
     ))
-
-    print("OPA 2")
 
     # Build trainer
     trainer = Trainer(args, task, model, criterion)
@@ -81,23 +77,19 @@ def main(args, init_distributed=False):
     # corresponding train iterator
     extra_state, epoch_itr = checkpoint_utils.load_checkpoint(args, trainer)
 
-    print("OPA 3")
 
     # Train until the learning rate gets too small
     train_meter = StopwatchMeter()
     train_meter.start()
     valid_subsets = args.valid_subset.split(',')
 
-    print("OPA 4")
-
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
-    print(hyps[0][0])
     #print("SPLIT_HERE",hyps, refs)
-    #f = open('./output.txt', 'w')
-    #f.write(hyps[0][0])
-    #f.close()
+    f = open('./output.txt', 'w')
+    f.write(hyps[0][0])
+    f.close()
     
 
 def validate(args, trainer, task, epoch_itr, subsets):
