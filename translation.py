@@ -5,7 +5,7 @@ from FeatureExtractor.extract_features import run as extract_features
 from os.path import exists
 
 def translate(input_path):
-    
+    # Must be on TSP-Prototype Folder
     lang = "pt"
     if not exists(input_path):
         print(input_path,": Video file was not found!")
@@ -28,17 +28,14 @@ def translate(input_path):
         return ""
     
     output = ""
-    
+
     try:
         print("predicting.")
         bashCommand = "bash ./TSPNet/test_scripts/test_phoenix_pos_embed_sp_test_3lvl.sh"
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         output, error = process.communicate()
-        try:
-            with open('./output.txt') as f:
-                output = f.readlines()[0]
-        except:
-            print(input_path,": Output file was empty!")
+        with open('./output.txt') as f:
+            output = f.readlines()[0]
     except:
         print(input_path,": An error occurred during prediction!")
         
