@@ -27,25 +27,23 @@ def translate(input_path):
         print(input_path,": An error occurred during extraction!")
         return ""
     
-    os.chdir('./TSPNet/test_scripts')
     output = ""
     
     try:
         print("predicting.")
-        bashCommand = "bash test_phoenix_pos_embed_sp_test_3lvl.sh"
+        bashCommand = "bash ./TSPNet/test_scripts/test_phoenix_pos_embed_sp_test_3lvl.sh"
         process = subprocess.Popen(bashCommand.split(), stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         output, error = process.communicate()
         try:
-            with open('../output.txt') as f:
+            with open('./output.txt') as f:
                 output = f.readlines()[0]
         except:
             print(input_path,": Output file was empty!")
     except:
         print(input_path,": An error occurred during prediction!")
         
-    os.chdir('../..')
     shutil.rmtree('./TSPNet/i3d-features')
-    open('./TSPNet/output.txt', 'w').close()
+    open('./output.txt', 'w').close()
     open('./TSPNet/data-bin/phoenix2014T/sp25000/test.sign-'+lang+'.sign', 'w').close()
     open('./TSPNet/data-bin/phoenix2014T/sp25000/test.sign-'+lang+'.'+lang, 'w').close()
     
