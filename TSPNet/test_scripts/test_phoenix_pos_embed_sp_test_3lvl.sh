@@ -46,7 +46,7 @@ python ./TSPNet/test_scripts/test_sign_local.py data-bin/phoenix2014T/sp${VOCAB}
         --maximize-best-checkpoint-metric \
         --encoder-learned-pos \
         --decoder-learned-pos \
-        --decoder-embed-path data-bin/phoenix2014T/sp${VOCAB}/emb \
+        --decoder-embed-path TSPNet/data-bin/phoenix2014T/sp${VOCAB}/emb \
         --decoder-attention-heads 10 \
         --encoder-layers ${ENC_LAYERS} \
         --restore-file ${CHECKPOINT}
