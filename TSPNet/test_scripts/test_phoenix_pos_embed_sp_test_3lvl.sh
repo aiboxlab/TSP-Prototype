@@ -1,16 +1,16 @@
 #!/bin/bash
 
 set -x -e -u -o pipefail
-CHECKPOINT=$(realpath './TSPNet/checkpoint_path/checkpoint_best.pt')
+CHECKPOINT=$(realpath '../checkpoint_path/checkpoint_best.pt')
 
-#cd ..
+cd ..
 
 DROPOUT=0.4
 PATIENCE=8
 ENC_LAYERS=1
 
 VOCAB=25000
-python ./TSPNet/test_scripts/test_sign_local.py TSPNet/data-bin/phoenix2014T/sp${VOCAB} \
+python test_scripts/test_sign_local.py data-bin/phoenix2014T/sp${VOCAB} \
         --task translation_sign \
         --target-lang pt \
         --max-tokens 4096 \
@@ -46,7 +46,7 @@ python ./TSPNet/test_scripts/test_sign_local.py TSPNet/data-bin/phoenix2014T/sp$
         --maximize-best-checkpoint-metric \
         --encoder-learned-pos \
         --decoder-learned-pos \
-        --decoder-embed-path TSPNet/data-bin/phoenix2014T/sp${VOCAB}/emb \
+        --decoder-embed-path data-bin/phoenix2014T/sp${VOCAB}/emb \
         --decoder-attention-heads 10 \
         --encoder-layers ${ENC_LAYERS} \
         --restore-file ${CHECKPOINT}
