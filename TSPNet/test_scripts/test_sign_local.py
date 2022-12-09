@@ -86,8 +86,7 @@ def main(args, init_distributed=False):
     tokenize = sacrebleu.DEFAULT_TOKENIZER if not args.eval_tokenized_bleu else 'none'
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
-    #print(hyps[0][0])
-    open('./OUTATHEREAAAAAAAAAAAA.txt', 'a').close()
+    print(hyps[0][0])
     f = open('./output.txt', 'w')
     f.write(hyps[0][0])
     f.close()
