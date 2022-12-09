@@ -41,7 +41,7 @@ def load_all_rgb_frames_from_video(video, desired_channel_order='rgb'):
             ret, frame = cap.read()
 
             # Rescaling
-            # frame = make_frame(frame, 224)
+            frame = make_frame(frame, 224)
 
             frame = cv2.resize(frame, dsize=(224, 224))
 
