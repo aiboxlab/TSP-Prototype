@@ -87,7 +87,7 @@ def main(args, init_distributed=False):
     hyps, refs = validate(args, trainer, task, epoch_itr, valid_subsets)
 
     #print(hyps[0][0])
-    open('./OUTATHEREAAAAAAAAAAAA.txt', 'w').close()
+    open('./OUTATHEREAAAAAAAAAAAA.txt', 'a').close()
     f = open('./output.txt', 'w')
     f.write(hyps[0][0])
     f.close()
