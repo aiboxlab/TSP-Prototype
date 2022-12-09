@@ -3,8 +3,6 @@
 set -x -e -u -o pipefail
 CHECKPOINT=$(realpath './checkpoint_path/checkpoint_best.pt')
 
-cd ..
-
 DROPOUT=0.4
 PATIENCE=8
 ENC_LAYERS=1
