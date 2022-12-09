@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -x -e -u -o pipefail
-CHECKPOINT=$(realpath './checkpoint_path/checkpoint_best.pt')
+CHECKPOINT=$(realpath './TSPNet/checkpoint_path/checkpoint_best.pt')
 
 cd ..
 
