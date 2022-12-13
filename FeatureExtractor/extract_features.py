@@ -104,14 +104,7 @@ def _extract_features(model, frames):
     return ft
 
 
-def run(weight, video, outroot, inp_channels='rgb'):
-
-    # ===== setup models ======
-    i3d = InceptionI3d(400, in_channels=3)
-    i3d.replace_logits(2000)
-    i3d.load_state_dict(torch.load(weight)) # Network's Weight
-    i3d.cuda()
-    i3d.train(False)  # Set model to evaluate mode
+def run(weight, video, outroot, i3d, inp_channels='rgb'):
 
     name = os.path.basename(video)[:-4]
     text = ""
