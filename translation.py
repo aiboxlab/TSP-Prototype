@@ -12,9 +12,8 @@ def translate(input_path, i3d):
         return ""
         
     try:
-        weight = './FeatureExtractor/checkpoints/archive/nslt_2000_065538_0.514762.pt'
         i3d_folder = './TSPNet/i3d-features'
-        json = extract_features(weight, input_path, i3d_folder, i3d, 'rgb')
+        json = extract_features(input_path, i3d_folder, i3d, 'rgb')
     except:
         print(input_path,": An error occurred during extraction!")
         return ""

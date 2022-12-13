@@ -104,7 +104,7 @@ def _extract_features(model, frames):
     return ft
 
 
-def run(weight, video, outroot, i3d, inp_channels='rgb'):
+def run(video, outroot, i3d, inp_channels='rgb'):
 
     name = os.path.basename(video)[:-4]
     text = ""
