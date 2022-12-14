@@ -9,10 +9,10 @@ class TranslateService_TSPNet:
 
 		# model_project_path = './FeatureExtractor/checkpoints/archive/nslt_2000_065538_0.514762.pt'
 		i3d = InceptionI3d(400, in_channels=3)
-    	i3d.replace_logits(2000)
-    	i3d.load_state_dict(torch.load(model_project_path)) # Network's Weight
-    	i3d.cuda()
-    	i3d.train(False)  # Set model to evaluate mode
+		i3d.replace_logits(2000)
+		i3d.load_state_dict(torch.load(model_project_path)) # Network's Weight
+		i3d.cuda()
+		i3d.train(False)  # Set model to evaluate mode
 		self.model = i3d
 
 	def translate_from_video(self, video_path):
