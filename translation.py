@@ -13,6 +13,7 @@ def translate(input_path, i3d):
         
     try:
         i3d_folder = './TSPNet/i3d-features'
+        print('extracting.')
         json = extract_features(input_path, i3d_folder, i3d, 'rgb')
     except:
         print(input_path,": An error occurred during extraction!")

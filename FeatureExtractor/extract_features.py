@@ -109,8 +109,6 @@ def run(video, outroot, i3d, inp_channels='rgb'):
     name = os.path.basename(video)[:-4]
     text = ""
 
-    print('extracting.')
-
     # ===== extract features ======
     for framespan, stride in [(16, 2), (12, 2), (8, 2)]:
 
